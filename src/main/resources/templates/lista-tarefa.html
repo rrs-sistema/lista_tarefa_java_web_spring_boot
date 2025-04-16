@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista de Tarefas</title>
+        <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fe;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 95%;
+            max-width: 1800px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #396F55;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            font-size: 16px;
+            color: #333;
+        }
+
+        th {
+            background-color: #396F55;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        td a {
+            color: #396F55;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #396F55;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #4e8b68;
+        }
+
+        .voltar {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .voltar a {
+            color: red;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .voltar a:hover {
+            text-decoration: underline;
+        }
+
+        .alunos {
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            text-align: right;
+            margin-top: 30px;
+        }
+
+        .alunos p {
+            margin: 0;
+            font-size: 12px;
+            color: #333;
+        }
+
+        /* Estilo para linhas de tarefas concluídas */
+        .concluida {
+            background-color: red;
+        }
+
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+            <h2>Lista de Tarefas</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th style="text-align: center;">Responsável</th>
+                        <th style="text-align: center;">Data de Criação</th>
+                        <th style="text-align: center;">Data de Conclusão</th>
+                        <th style="text-align: center;">Status</th>
+                        <th style="text-align: center;">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Iteração sobre as tarefas -->
+                    <tr th:each="tarefa : ${tarefas}"
+                        th:class="${tarefa.concluida ? 'concluida' : ''}">
+                        <td th:text="${tarefa.nome}">Descrição da tarefa</td>
+                        <td th:text="${tarefa.responsavel}"
+                            style="width: 220px; text-align: center;">Responsável</td>
+                        <td th:text="${tarefa.dataCriacao}"
+                            style="width: 180px; text-align: center;">--/--/----</td>
+                        <td th:text="${tarefa.dataConclusao}"
+                            style="width: 180px; text-align: center;">--/--/----</td>
+                        <td style="width: 150px; text-align: center;">
+                            <span
+                                th:text="${tarefa.concluida ? 'Concluída' : 'Não Concluída'}"></span>
+                        </td>
+                        <td style="width: 150px; text-align: center;">
+                            <a
+                                th:href="@{/alterar-status/{id}(id=${tarefa.id})}"
+                                style="color: #396F55; text-decoration: underline;">
+                                Alterar Status
+                            </a>
+                        </td>
+                    </tr>
+                    <!-- Fim da iteração -->
+                </tbody>
+            </table>
+
+            <a href="/cadastro-tarefa">
+                <button class="btn">Adicionar Nova Tarefa</button>
+            </a>
+
+            <div class="voltar">
+                <a href="/home">Voltar para Home</a>
+            </div>
+
+            <div class="alunos">
+                <p>Alunos: Jullia Acsa & Rivaldo Roberto</p>
+            </div>
+        </div>
+
+    </body>
+</html>
