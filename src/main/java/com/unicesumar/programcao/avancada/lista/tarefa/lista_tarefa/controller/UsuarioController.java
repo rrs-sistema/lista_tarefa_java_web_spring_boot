@@ -38,26 +38,26 @@ public class UsuarioController {
     }
 
     // Exibe a página de cadastro
-    @GetMapping("/cadastro")
+    @GetMapping("/cadastro-usuario")
     public String cadastro() {
-        return "cadastro"; // Retorna a página de cadastro (sem a extensão .html)
+        return "cadastro-usuario"; // Retorna a página de cadastro (sem a extensão .html)
     }
 
     // Processa o cadastro de um novo usuário
-    @PostMapping("/cadastro")
+    @PostMapping("/cadastro-usuario")
     public String cadastrar(@RequestParam String nome, @RequestParam String email, @RequestParam String senha,
             @RequestParam String confirmaSenha, Model model, HttpSession session) {
 
         UsuarioModel usuario = new UsuarioModel();
         if (!usuario.validaSenha(senha, confirmaSenha)) {
             model.addAttribute("msg", "As senhas não conferem!");
-            return "cadastro"; // Retorna para a página de login com mensagem de erro
+            return "cadastro-usuario"; // Retorna para a página de login com mensagem de erro
         }
         // Cria um novo usuário com os dados fornecidos
         Boolean cadastrou = usuarioService.save(nome, email, senha, model, session);
 
         if (!cadastrou) {
-            return "cadastro";
+            return "cadastro-usuario";
         }
         // Redireciona para a página home após o cadastro
         return "redirect:/lista-tarefa";
